@@ -2,9 +2,9 @@
 include '../database/config.php';
 
 echo '<body style="background-color:#eee">';
-define('PASSWORD_REGEX', '/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/');
+define('PASSWORD_REGEX', '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/');
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['password'])) {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $email = $_POST['email'];
@@ -25,15 +25,10 @@ if (isset($_POST['submit'])) {
                 header('location:login_form.php');
             }
         } else {
-            $error = '<ul>
-                        <li>Password must be a minimum of 8 characters</li>
-                        <li>Must contain at least 1 number</li>
-                        <li>Must contain at least one uppercase character</li>
-                        <li>Must contain at least one lowercase character</li>
-                      </ul>';
+            $error = "Password must be a minimum of 8 characters, of which 1 is uppercase, 1 is a number and 1 is lowercase.";
         }
     } else {
-        $error = 'Please put a valid email.';
+        $error = "Please put a valid email.";
     }
 }
 ?>
@@ -76,7 +71,7 @@ if (isset($_POST['submit'])) {
                     <label for="password">Password</label><br>
                     <input type="password" class="input-form" id="passField" name="password" placeholder="Enter your password" required readonly onfocus="this.removeAttribute('readonly');">
                 </div>
-                <input type="submit" id="button" name="submit" value="Register Now">
+                <button id="button">Register Now</button>
                 <p>Already have an account? <a href="login_form.php">LogIn now</a></p>
             </div>
         </form>

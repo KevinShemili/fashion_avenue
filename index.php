@@ -19,7 +19,6 @@ session_start();
    <link rel="stylesheet" href="css/responsive.css">
    <link rel="icon" href="images/fevicon.png" type="image/gif" />
    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-   <script src="javascript/index_script.js" defer></script>
 </head>
 
 <body class="main-layout">

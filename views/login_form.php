@@ -3,15 +3,16 @@ include '../database/config.php';
 
 session_start();
 
+echo '<body style="background-color:#eee">';
+
+
 // prevent user from pressing back button after having logged in. Which would send them again to login page.
 if (isset($_SESSION['client_name']) || isset($_SESSION['admin_name'])) {
     header('location:../index.php');
     exit;
 }
 
-echo '<body style="background-color:#eee">';
-
-if (isset($_POST['submit'])) {
+if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -36,6 +37,7 @@ if (isset($_POST['submit'])) {
         $error = 'Incorrect email or password.';
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +49,7 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
     <link rel="stylesheet" href="../css/login_register_form.css">
+    <script src="../javascript/login_script.js" defer></script>
 </head>
 
 <body>
@@ -61,13 +64,13 @@ if (isset($_POST['submit'])) {
             <div id="content">
                 <div class="form-elements">
                     <label for="email">Email</label><br>
-                    <input type="email" class="input-form" name="email" placeholder="Enter your email" required>
+                    <input id="emailField" type="email" class="input-form" name="email" placeholder="Enter your email" required>
                 </div>
                 <div class="form-elements">
                     <label for="password">Password</label><br>
-                    <input type="password" class="input-form" name="password" placeholder="Enter your password" required>
+                    <input id="passField" type="password" class="input-form" name="password" placeholder="Enter your password" required>
                 </div>
-                <input type="submit" id="button" name="submit" value="Log In">
+                <button id="button">Log In</button>
             </div>
         </form>
 
