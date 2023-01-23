@@ -7,8 +7,11 @@ echo '<body style="background-color:#eee">';
 
 
 // prevent user from pressing back button after having logged in. Which would send them again to login page.
-if (isset($_SESSION['client_name']) || isset($_SESSION['admin_name'])) {
+if (isset($_SESSION['client_name'])) {
     header('location:../index.php');
+    exit;
+} else if (isset($_SESSION['admin_name'])) {
+    header('location:admin_panel.php');
     exit;
 }
 
@@ -28,7 +31,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 header('location:../index.php');
             } else {
                 $_SESSION['admin_name'] = $row['name'];
-                header('location:admin.php');
+                header('location:admin_panel.php');
             }
         } else {
             $error = 'Incorrect email or password.';

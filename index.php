@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (isset($_SESSION['admin_name'])) {
+   header("location:views/admin_panel.php");
+   exit;
+}
 ?>
 
 <!DOCTYPE html>
