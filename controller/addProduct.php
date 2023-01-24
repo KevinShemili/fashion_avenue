@@ -1,0 +1,35 @@
+<?php
+
+session_start();
+include '../database/config.php';
+
+if (!isset($_SESSION['admin_name'])) {
+    header('HTTP/1.0 403 Forbidden', TRUE, 403);
+    die(header('location:../error/error.php'));
+}
+
+if (isset($_POST['prodname']) && isset($_POST['proddesc']) && isset($_POST['brand']) && isset($_POST['category'])) {
+    $prodname = $_POST['prodname'];
+    $prodDesc = $_POST['proddesc'];
+    $prodBrand = $_POST['brand'];
+    $prodCatg = $_POST['category'];
+}
+
+if (isset($_FILES['image'])) {
+    $file_name = $_FILES['image']['name'];
+    $file_tmp = $_FILES['image']['tmp_name'];
+    $file_ext = strtolower(end(explode('.', $_FILES['image']['name'])));
+    $extensions = array("jpeg", "jpg", "png");
+    if (in_array($file_ext, $extensions) === false) {
+        echo "Extension not allowed, please choose a JPEG or PNG file.";
+        exit;
+    }
+    $new_file_name = uniqid() . '.' . $file_ext;
+    $file_path = '../images/serverSidePhotos/' . $new_file_name;
+    move_uploaded_file($file_tmp, $file_path);
+
+    $query = "INSERT INTO product (productName, productDesc, imageName, imageLocation, brand, category) VALUES ('$prodname', '$prodDesc', '$new_file_name', 'images/serverSidePhotos/$new_file_name', '$prodBrand', '$prodCatg')";
+    $result = mysqli_query($connection, $query);
+} else {
+    echo "Please provide an image";
+}

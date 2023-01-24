@@ -1,13 +1,40 @@
-var photo = document.getElementById("photo");
+let photo = document.getElementById("imgSubmit");
+let addBtn = document.getElementById("btn");
 
-var data = new FormData();
-//from inputs
-data.append(photo.name, photo.files[0]);
-data.append("name", name);
-data.append("price", price);
-data.append("quantity", quantity);
-data.append("description", description);
+let namefld = document.getElementById("prdName");
+let brand = document.getElementById("prdBrand");
+let category = document.getElementById("catg");
+let desc = document.getElementById("textarea");
 
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.open("POST", "ajaxpost.php");
-xmlhttp.send(data);
+let errormsg = document.getElementById("error-msg");
+
+let clearFields = () => {
+  namefld.value = "";
+  brand.value = "";
+  category.value = "";
+  desc.value = "";
+  errormsg.value = "";
+};
+
+window.addEventListener("pageshow", () => {
+  clearFields();
+});
+
+addBtn.addEventListener("click", () => {
+  if (
+    namefld.value != "" &&
+    brand.value !== "" &&
+    category.value !== "" &&
+    desc.value !== ""
+  ) {
+    let http = new XMLHttpRequest();
+    http.open("POST", "../controller/addProduct.php");
+    http.send(new FormData(document.getElementById("imgSubmit")));
+    http.addEventListener("load", () => {
+      errormsg.innerText = http.responseText;
+      window.location.href = "../views/admin_products_panel.php";
+    });
+  } else {
+    errormsg.innerText = "Please fill all fields";
+  }
+});

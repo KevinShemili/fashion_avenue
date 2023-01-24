@@ -22,6 +22,7 @@ if (!isset($_SESSION['admin_name'])) {
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/admin_cards.css">
     <script src="../javascript/admin_product_panel.js" defer></script>
 </head>
 
@@ -95,8 +96,7 @@ if (!isset($_SESSION['admin_name'])) {
     <div class="inner-content">
         <button id="addBtn" type="button" class="btn btn-primary btn-lg btn-block m-3" style="width: 98%; background-color: #f2c119; border: none;">Add Product</button>
     </div>
-    <div class="inner-content">
-
+    <div id="container">
     </div>
 
     <footer>

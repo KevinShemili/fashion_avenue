@@ -21,52 +21,64 @@ if (!isset($_SESSION['admin_name'])) {
 </head>
 
 <body>
-
-    <div id="form-container">
-        <table>
-            <thead>
-                <th colspan="2">
-                    <h3>Upload a new product</h3>
-                </th>
-            </thead>
-            <tr>
-                <td>
-                    <div id="left">
-                        <label id="labelimg" for="image">Product Image</label>
+    <div id="all">
+        <div>
+            <h3>Upload a new product</h3>
+        </div>
+        <div>
+            <h5 id="error-msg" style="color: crimson;"></h5>
+        </div>
+        <div id="form-container">
+            <form id="imgSubmit" method="post">
+                <div id="left">
+                    <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                        <label id="labelimg" for="image">Product Image</label><br>
                         <input id="img" type="file" name="image" accept="image/jpg, image/jpeg, image/png">
                     </div>
-
-                </td>
-                <td>
-                    <div id="right">
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <label for="prodname">Name</label><br>
-                            <input type="text" name="prodname" placeholder="Enter name" class="input-form" required>
-                            <label for="proddesc">Product Description</label><br>
-                            <input id="textarea" type="text" name="proddesc" placeholder="Enter description" class="input-form" required>
-                            <label for="brand">Product Brand</label>
-                            <input type="text" name="brand" placeholder="Enter brand" class="input-form" required>
-                            <label for="category">Product Category</label><br>
-
-                            <select name="category">
-                                <option value="shoes">Shoes</option>
-                                <option value="underwear">Underwear</option>
-                                <option value="pants">Pants</option>
-                                <option value="tshirt">T-Shirt</option>
-                                <option value="jacket">Jacket</option>
-                                <option value="top-hat">Top & Hat</option>
-                            </select>
+                    <div style="margin-top: 30px;">
+                        <label for="proddesc">Product Description</label>
+                        <input id="textarea" type="text" name="proddesc" placeholder="Enter description" class="input-form" required>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"><button>Upload</button></td>
-            </tr>
+                </div>
+
+                <div id="right">
+                    <div>
+                        <label for="prodname">Name</label><br>
+                        <input id="prdName" type="text" name="prodname" placeholder="Enter name" class="input-form" required>
+                    </div>
+                    <div>
+                        <label for="brand">Product Brand</label><br>
+                        <input id="prdBrand" type="text" name="brand" placeholder="Enter brand" class="input-form" required>
+                    </div>
+                    <label for="price">Product Brand</label><br>
+                    <input id="prodPrice" type="number" name="price" placeholder="Enter price" class="input-form" required>
+                    <div>
+                        <label for="onsale">Product Brand</label><br>
+                        <input id="prodOnSale" type="checkbox" name="onsale" placeholder="On sale?" class="input-form" required>
+                    </div>
+                    <label for="hiddenSale">Product Brand</label><br>
+                    <input id="hiddenSaleField" type="number" name="hiddenSale" placeholder="On sale?" class="input-form" required>
+                    <div>
+                        <label for="category">Product Category</label><br>
+                        <select id="catg" name="category">
+                            <option value="shoes">Shoes</option>
+                            <option value="underwear">Underwear</option>
+                            <option value="pants">Pants</option>
+                            <option value="tshirt">T-Shirt</option>
+                            <option value="jacket">Jacket</option>
+                            <option value="top-hat">Top & Hat</option>
+                        </select>
+
+                    </div>
+
             </form>
-        </table>
 
+            <div style="margin-top: 30px;">
+                <td colspan="2"><button id="btn">Upload</button></td>
+            </div>
+
+        </div>
     </div>
-
 </body>
 
 </html>
