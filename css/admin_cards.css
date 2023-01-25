@@ -5,3 +5,48 @@
     justify-content: space-evenly;
     text-align: center;
 }
+
+.card {
+    width: 250px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+    border: none;
+}
+
+#img {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 200px;
+    max-height: 200px;
+}
+
+h4,
+h5 {
+    inline-size: 200px;
+    overflow-wrap: break-word;
+}
+
+#edit-fields {
+    background-color: #183661;
+    width: 200px;
+    height: 35px;
+    color: white;
+}
+
+#change-qty {
+    background-color: crimson;
+    width: 200px;
+    height: 35px;
+    color: white;
+}
+
+#delete-btn {
+    background-color: red;
+    width: 200px;
+    height: 35px;
+    color: white;
+}

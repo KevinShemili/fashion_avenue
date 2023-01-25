@@ -1,11 +1,17 @@
 <?php
 session_start();
 echo '<body style="background-color:#eee">';
+include '../database/config.php';
 
 if (!isset($_SESSION['admin_name'])) {
     header("location:login_form.php");
     exit;
 }
+
+if (isset($_POST['prd_id'])) {
+    $productID = $_POST['prd_id'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +23,7 @@ if (!isset($_SESSION['admin_name'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add new product</title>
     <link rel="stylesheet" href="../css/addProduct.css">
-    <script src="../javascript/add_new_product.js" defer></script>
+    <script src="../javascript/expand_product.js" defer></script>
 </head>
 
 <body>
@@ -81,7 +87,9 @@ if (!isset($_SESSION['admin_name'])) {
             </form>
 
             <div style="margin-top: 30px;">
-                <td colspan="2"><button type="button" id="btn">Upload</button></td>
+                <td colspan="2"><button type="button" id="btn">Update</button></td>
+                <td colspan="2"><button type="button" id="btn">Add</button></td>
+                <td colspan="2"><button type="button" id="btn">Remove</button></td>
             </div>
 
         </div>

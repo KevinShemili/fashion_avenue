@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_name'])) {
 
 include '../database/config.php';
 $userArray = [];
-$sql_query = " SELECT `productName`, `productDesc`, `imageName`, `imageLocation`, `brand`, `category` FROM `product` ";
+$sql_query = " SELECT `productId`, `productName`, `productDesc`, `imageName`, `imageLocation`, `brand`, `category`, `price`, `onSale`, `salePercentage`, `quantity` FROM `product` ";
 $query_result = mysqli_query($connection, $sql_query);
 
 while ($row = $query_result->fetch_assoc()) {
