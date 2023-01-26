@@ -26,9 +26,7 @@ let getProducts = () => {
               <h5 class="card-title">${product["productDesc"]}</h5>
               <h5 class="card-text">${product["brand"]}</h5>
               <h5 class="card-text">${product["price"]} $</h5>
-              <button id="edit-fields" type="button" prd-id="${product["productId"]}">Edit Fields</button>
-              <button id="change-qty" type="button" prd-id="${product["productId"]}">Change Quantity</button>
-              <button id="delete-btn" type="button" prd-id="${product["productId"]}">Delete</button>
+              <button id="edit-fields" type="button" prd-id="${product["productId"]}">Edit</button>
           </div>
         </div>
         `;
@@ -42,8 +40,6 @@ let getProducts = () => {
 content.addEventListener("click", (event) => {
   if (event.target.nodeName == "BUTTON") {
     const prd_id = event.target.getAttribute("prd-id");
-    let httpRequest = new XMLHttpRequest();
-    httpRequest.open("POST", `../views/expand_product.php`);
-    httpRequest.send("prd_id=" + prd_id);
+    window.location.href = "../views/expand_product.php?prdid=" + prd_id;
   }
 });

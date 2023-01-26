@@ -48,7 +48,7 @@ if (!isset($_SESSION['admin_name'])) {
                 <div class="container">
                     <div class="row d_flex justify-content-center">
                         <div class="col-md-4">
-                            <a class="logo" href="#"><img src="../images/logo.png" alt="#" /></a>
+                            <a class="logo" href="#"><img src="../images/sitelogo/imgonline-com-ua-resize-3VsgGALCBFE0eR.jpg" alt="#" /></a>
                         </div>
                     </div>
                 </div>
@@ -79,17 +79,6 @@ if (!isset($_SESSION['admin_name'])) {
                                 </div>
                             </nav>
                         </div>
-                        <div class="col-md-4 mt-2">
-                            <div>
-                                <label for="select" style="color: white;">Number of rows</label><br>
-                                <select id="select" name="select" style="background-color: transparent; border: none; color: white">
-                                    <option style="color: black;" value="5">5</option>
-                                    <option style="color: black;" value="10">10</option>
-                                    <option style="color: black;" value="30">30</option>
-                                    <option style="color: black;" value="all">All</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -115,11 +104,7 @@ if (!isset($_SESSION['admin_name'])) {
                 <li class="page-item">
                     <a id="back-btn" class="page-link">Previous</a>
                 </li>
-                <li class="page-item"><a id="first" class="page-link">1</a></li>
-                <li class="page-item"><a id="second" class="page-link">2</a></li>
-                <li class="page-item"><a id="third" class="page-link">3</a></li>
-                <li class="page-item">
-                    <a id="next-btn" class="page-link">Next</a>
+                <a id="next-btn" class="page-link">Next</a>
                 </li>
             </ul>
         </nav>
