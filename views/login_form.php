@@ -76,7 +76,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 <button id="button">Log In</button>
             </div>
         </form>
-
+        <div>
+            <p>Don't have an account? <a href="register_form.php">Register now</a></p>
+        </div>
     </div>
 </body>
 

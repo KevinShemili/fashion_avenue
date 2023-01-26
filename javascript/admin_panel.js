@@ -10,7 +10,7 @@ let getUsers = () => {
     let users = JSON.parse(usersJson);
     for (let user of users) {
       let flag;
-      if (user["credit_card"] === 0 || user["credit_card"] === undefined) {
+      if (user["credit_card"] == 0 || user["credit_card"] == undefined) {
         flag = "../images/close.png";
       } else {
         flag = "../images/check.png";
@@ -34,7 +34,7 @@ let prepareParagraph = (users) => {
     negatives = 0;
 
   for (let user of users) {
-    if (user["credit_card"] === 0 || user["credit_card"] === undefined) {
+    if (user["credit_card"] == 0 || user["credit_card"] == undefined) {
       negatives++;
     } else {
       positives++;

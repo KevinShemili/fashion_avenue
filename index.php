@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include 'database/config.php';
+
 if (isset($_SESSION['admin_name'])) {
    header("location:views/admin_panel.php");
    exit;
@@ -66,9 +68,24 @@ if (isset($_SESSION['admin_name'])) {
                      <a class="logo" href="#"><img src="images/logo.png" alt="#" /></a>
                   </div>
                   <div class="col-md-4">
-                     <ul class="right_icon d_none1">
-                        <a href="#" id="shopnow-header" class="order">Shop Now</a>
-                     </ul>
+                     <?php
+                     if (isset($_SESSION['client_name'])) {
+                        $name = $_SESSION['client_name'];
+                        $sql_query = "SELECT credit_card FROM user WHERE name = '$name' ";
+                        $query_result = mysqli_query($connection, $sql_query);
+                        $row = mysqli_fetch_array($query_result);
+                        if ($row['credit_card'] == NULL || $row['credit_card'] == 0) {
+                           echo '<ul class="right_icon d_none1">
+                        <a href="views/add_credit_card.php" id="shopnow-header" class="order">Enter Credit Card</a>
+                     </ul>';
+                        }
+                     } else {
+                        echo '<ul class="right_icon d_none1">
+                        <a href="views/login_form.php" id="shopnow-header" class="order">Shop Now</a>
+                     </ul>';
+                     }
+                     ?>
+
                   </div>
                </div>
             </div>
@@ -118,7 +135,7 @@ if (isset($_SESSION['admin_name'])) {
                <div class="text-bg">
                   <h1> <span class="blodark"> Fashion Avenue </span> <br>Trends 2023</h1>
                   <p>A huge fashion collection for ever </p>
-                  <a class="read_more" href="">Shop now</a>
+                  <a class="read_more" href="views/login_form.php">Shop now</a>
                </div>
             </div>
             <div class="col-md-4">

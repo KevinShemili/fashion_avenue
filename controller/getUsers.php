@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_name'])) {
 
 include '../database/config.php';
 $userArray = [];
-$sql_query = " SELECT `name`, `surname`, `email`, `role` FROM `user` ";
+$sql_query = " SELECT `name`, `surname`, `email`, `role`, `credit_card` FROM `user` ";
 $query_result = mysqli_query($connection, $sql_query);
 
 while ($row = $query_result->fetch_assoc()) {

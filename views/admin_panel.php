@@ -79,12 +79,15 @@ if (!isset($_SESSION['admin_name'])) {
                                 </div>
                             </nav>
                         </div>
-                        <div class="col-md-4">
-                            <div class="search">
-                                <form action="/action_page.php">
-                                    <input class="form_sea" type="text" placeholder="Search" name="search">
-                                    <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
-                                </form>
+                        <div class="col-md-4 mt-2">
+                            <div>
+                                <label for="select" style="color: white;">Number of rows</label><br>
+                                <select id="select" name="select" style="background-color: transparent; border: none; color: white">
+                                    <option style="color: black;" value="5">5</option>
+                                    <option style="color: black;" value="10">10</option>
+                                    <option style="color: black;" value="30">30</option>
+                                    <option style="color: black;" value="all">All</option>
+                                </select>
                             </div>
                         </div>
                     </div>
