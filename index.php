@@ -65,7 +65,7 @@ if (isset($_SESSION['admin_name'])) {
                      </ul>
                   </div>
                   <div class="col-md-4">
-                     <a class="logo" href="#"><img src="images/logo.png" alt="#" /></a>
+                     <a class="logo" href="#"><img src="images/sitelogo/imgonline-com-ua-resize-3VsgGALCBFE0eR.jpg" alt="#" /></a>
                   </div>
                   <div class="col-md-4">
                      <?php
