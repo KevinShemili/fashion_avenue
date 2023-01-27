@@ -53,26 +53,29 @@ $errors = [];
 
             <div id="left" style="align-items: center; justify-content: center;">
                 <div>
-                    <?php echo "<img src='../" . $row['imageLocation'] . "' style='min-width: 200px; max-width: 200px; min-height: 200px; max-height: 200px;'>"; ?>
+                    <?php echo "<img src='../" . $row['imageLocation'] . "' style='min-width: 200px; max-width: 200px; min-height: 200px; max-height: 200px;' id='imagePreview'>"; ?>
                 </div>
                 <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin-top: 20px;">
 
                     <h5>Total Quantity</h5>
-                    <?php echo $row['quantity'] ?>
+                    <?php echo "<h5 id='totalQuantityNumber'>" . $row['quantity'] . "</h5>"; ?>
                 </div>
                 <div>
-                    <input type="number" style="margin: 10px; width: 60px;" class="input-form">
+                    <input id="quantityUpdateField" type="number" style="margin: 10px; width: 60px;" class="input-form">
                 </div>
                 <div>
-                    <button>Add</button>
-                    <button>Remove</button>
+                    <button id="btnAdd">Add</button>
+                    <button id="btnRemove">Remove</button>
+                </div>
+                <div>
+                    <h6 id="qtyErrorMsg" style="color: crimson;"></h6>
                 </div>
                 <form id="imgSubmit" method=" post">
                     <div style="margin-top: 60px; display: flex; align-content: center; justify-content: center; text-align: center; flex-direction: column;">
                         <label id="labelimg" for="image">Product Image</label><br>
                         <input id="img" type="file" style="margin-left: 120px;" name="image" accept="image/jpg, image/jpeg, image/png" required>
                         <div style="margin-top: 20px;">
-                            <button id="changephotobtn" name="changephotobtn" type="submit">Change Photo</button>
+                            <button id="changephotobtn" name="changephotobtn" type="submit">Preview Photo</button>
                         </div>
                 </form>
             </div>
@@ -123,8 +126,8 @@ $errors = [];
 
     </div>
     <div style="margin-top: 30px;">
-        <td colspan="2"><button type="button" id="btn">Update</button></td>
-        <td colspan="2"><button type="button" id="btn" style="background-color: crimson;">Remove</button></td>
+        <td colspan="2"><button type="button" id="btnUpdate">Update</button></td>
+        <td colspan="2"><button type="button" id="btnDelete" style="background-color: crimson;">Delete</button></td>
     </div>
 </body>
 

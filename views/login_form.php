@@ -11,7 +11,7 @@ if (isset($_SESSION['client_name'])) {
     header('location:../index.php');
     exit;
 } else if (isset($_SESSION['admin_name'])) {
-    header('location:admin_panel.php');
+    header('location:admin_panel.php?pag=1');
     exit;
 }
 
@@ -31,7 +31,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 header('location:../index.php');
             } else {
                 $_SESSION['admin_name'] = $row['name'];
-                header('location:admin_panel.php');
+                header('location:admin_panel.php?pag=1');
             }
         } else {
             $error = 'Incorrect email or password.';

@@ -65,7 +65,7 @@ if (!isset($_SESSION['admin_name'])) {
                                 <div class="collapse navbar-collapse" id="navbarsExample04">
                                     <ul class="navbar-nav mr-auto">
                                         <li class="nav-item ">
-                                            <a class="nav-link" href="admin_panel.php">Main Panel</a>
+                                            <a class="nav-link" href="admin_panel.php?pag=1">Main Panel</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="admin_products_panel.php">Products</a>
@@ -80,12 +80,10 @@ if (!isset($_SESSION['admin_name'])) {
                                 </div>
                             </nav>
                         </div>
-                        <div class="col-md-4">
-                            <div class="search">
-                                <form action="/action_page.php">
-                                    <input class="form_sea" type="text" placeholder="Search" name="search">
-                                    <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
-                                </form>
+                        <div>
+                            <div class="search" style="display: flex; align-items: center; justify-content: center; flex-direction: row;">
+                                <input id="searchField" class="form_sea" type="text" placeholder="Search" name="search" style="margin-right: 30px;">
+                                <button id="clearBtn" style="color: white; background-color: transparent;">CLEAR</button>
                             </div>
                         </div>
                     </div>

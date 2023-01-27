@@ -64,7 +64,7 @@ if (!isset($_SESSION['admin_name'])) {
                                 <div class="collapse navbar-collapse" id="navbarsExample04">
                                     <ul class="navbar-nav mr-auto">
                                         <li class="nav-item ">
-                                            <a class="nav-link" href="admin_panel.php">Main Panel</a>
+                                            <a class="nav-link" href="admin_panel.php?pag=1">Main Panel</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="admin_products_panel.php">Products</a>
@@ -77,7 +77,14 @@ if (!isset($_SESSION['admin_name'])) {
                                         </li>
                                     </ul>
                                 </div>
+
                             </nav>
+                        </div>
+                        <div>
+                            <div class="search" style="display: flex; align-items: center; justify-content: center; flex-direction: row;">
+                                <input id="searchField" class="form_sea" type="text" placeholder="Search" name="search" style="margin-right: 30px;">
+                                <button id="clearBtn" style="color: white; background-color: transparent;">CLEAR</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,13 +105,14 @@ if (!isset($_SESSION['admin_name'])) {
             </tbody>
         </table>
     </div>
-    <div>
-        <nav aria-label="Page navigation example">
-            <ul id="pagNr" class="pagination justify-content-center">
+    <div id="paginationDiv">
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
                 <li class="page-item">
-                    <a id="back-btn" class="page-link">Previous</a>
+                    <button id="back-btn"><a class="page-link">Previous</a></button>
                 </li>
-                <a id="next-btn" class="page-link">Next</a>
+                <li class="page-item">
+                    <button id="next-btn"><a class="page-link">Next</a></button>
                 </li>
             </ul>
         </nav>

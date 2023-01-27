@@ -4,7 +4,7 @@ session_start();
 include 'database/config.php';
 
 if (isset($_SESSION['admin_name'])) {
-   header("location:views/admin_panel.php");
+   header("location:views/admin_panel.php?pag=1");
    exit;
 }
 ?>
