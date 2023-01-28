@@ -10,10 +10,11 @@
     width: 250px;
     height: 400px;
     display: flex;
+    flex-grow: 25px;
+    margin: 40px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 30px;
     border: none;
 }
 
@@ -35,18 +36,5 @@ h5 {
     width: 200px;
     height: 35px;
     color: white;
-}
-
-#change-qty {
-    background-color: crimson;
-    width: 200px;
-    height: 35px;
-    color: white;
-}
-
-#delete-btn {
-    background-color: red;
-    width: 200px;
-    height: 35px;
-    color: white;
+    bottom: 0;
 }

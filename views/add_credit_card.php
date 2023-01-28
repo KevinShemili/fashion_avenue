@@ -19,11 +19,14 @@ if (isset($_POST['submit_button']) && !empty($_POST['submit_button'])) {
         $postCC = ($_POST['cc']);
         $len = strlen($_POST['cc']);
         if ($postCC && $len >= 0) {
-            $creditCard = $_POST['cc'];
+            $creditCard = mysqli_real_escape_string($connection, $_POST['cc']);
             if (preg_match($pattern, $creditCard)) {
                 $username = $_SESSION['client_name'];
                 $sql_query = " UPDATE `user` SET `credit_card` = '$creditCard' WHERE `name` = '$username' ";
                 $query_result = mysqli_query($connection, $sql_query);
+
+                $sql_query2 = " INSERT INTO `cart`(`userId`) VALUES ('$username') ";
+                $query_result2 = mysqli_query($connection, $sql_query2);
                 header('Location: ../index.php');
             } else {
                 $errors[] = "Follow the format XXX-XXXX-XXXX";
