@@ -1,66 +1,64 @@
+<?php
+session_start();
+
+include 'database/config.php';
+
+if (isset($_SESSION['admin_name'])) {
+   header("location:views/admin_panel.php?pag=1");
+   exit;
+}
+
+if (isset($_SESSION['client_name'])) {
+   $userId = $_SESSION['client_name'];
+   $sql_query2 = " SELECT `cartId` FROM `cart` WHERE `userId` = '$userId' ";
+   $query_result2 = mysqli_query($connection, $sql_query2);
+   $entry = mysqli_fetch_assoc($query_result2);
+   if ($entry != null)
+      $cartId = $entry['cartId'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-   <!-- basic -->
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- mobile metas -->
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-   <!-- site metas -->
-   <title>romofyi</title>
+   <title>Fashion Avenue</title>
    <meta name="keywords" content="">
    <meta name="description" content="">
    <meta name="author" content="">
-   <!-- bootstrap css -->
    <link rel="stylesheet" href="css/bootstrap.min.css">
    <link rel="stylesheet" href="css/style.css">
    <link rel="stylesheet" href="css/responsive.css">
-
+   <link rel="icon" href="images/fevicon.png" type="image/gif" />
+   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 </head>
-<!-- body -->
 
-<body class="main-layout footer_to90 about_page">
-   <!-- header -->
+<body class="main-layout">
    <header>
-      <!-- header inner -->
       <div class="header">
          <div class="header_top d_none1">
             <div class="container">
-               <div class="row">
-                  <div class="col-md-4">
-                     <ul class="conta_icon">
-                        <li><a href="#"><img src="images/call.png" alt="#" />Call us: 0126 - 922 - 0162</a> </li>
-                     </ul>
-                  </div>
+               <div class="row justify-content-center">
                   <div class="col-md-4">
                      <ul class="social_icon">
                         <li> <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i>
                            </a>
                         </li>
                         <li> <a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li> <a href="#"> <i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                         <li> <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
                            </a>
                         </li>
                      </ul>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="se_fonr1">
-                        <form action="#">
-                           <div class="select-box">
-                              <label for="select-box1" class="label select-box1"><span class="label-desc">English</span>
-                              </label>
-                              <select id="select-box1" class="select">
-                                 <option value="Choice 1">English</option>
-                                 <option value="Choice 1">Falkla</option>
-                                 <option value="Choice 2">Germa</option>
-                                 <option value="Choice 3">Neverl</option>
-                              </select>
-                           </div>
-                        </form>
-                        <span class="time_o"> Open hour: 8.00 - 18.00</span>
+                     <div class="text-center">
+                        <?php
+                        if (isset($_SESSION['client_name'])) {
+                           echo '<p class="h5 mt-3 font-weight-bold">Welcome, ' . $_SESSION['client_name'] . '</p>';
+                        }
+                        ?>
                      </div>
                   </div>
                </div>
@@ -71,17 +69,37 @@
                <div class="row d_flex">
                   <div class="col-md-4">
                      <ul class="conta_icon d_none1">
-                        <li><a href="#"><img src="images/email.png" alt="#" /> demo@gmail.com</a> </li>
+                        <li><a href="#"><img src="images/email.png" alt="#" /> avenuestore@gmail.com</a> </li>
                      </ul>
                   </div>
                   <div class="col-md-4">
-                     <a class="logo" href="#"><img src="images/logo.png" alt="#" /></a>
+                     <a class="logo" href="#"><img src="images/sitelogo/imgonline-com-ua-resize-3VsgGALCBFE0eR.jpg" alt="#" /></a>
                   </div>
                   <div class="col-md-4">
-                     <ul class="right_icon d_none1">
-                        <li><a href="#"><img src="images/shopping.png" alt="#" /></a> </li>
-                        <a href="#" class="order">Order Now</a>
-                     </ul>
+                     <?php
+                     if (isset($_SESSION['client_name'])) {
+                        $name = $_SESSION['client_name'];
+                        $sql_query = "SELECT credit_card FROM user WHERE name = '$name' ";
+                        $query_result = mysqli_query($connection, $sql_query);
+                        $row = mysqli_fetch_array($query_result);
+                        if ($row['credit_card'] == NULL || $row['credit_card'] == 0) {
+                           echo '<ul class="right_icon d_none1">
+                        <a href="views/add_credit_card.php" id="shopnow-header" class="order">Enter Credit Card</a>
+                     </ul>';
+                        } else {
+                           echo "<ul class='right_icon' style='background-color: white;'>
+                                    <a href='views/cart.php?cartId=" . $cartId . "' id='shopnow-header' class='order'>
+                                       <img style='min-width: 20px; max-width: 20px; min-height: 20px; max-height: 20px;' src='images/shoppingcart.png' alt='#' />
+                                    </a>
+                                 </ul>";
+                        }
+                     } else {
+                        echo '<ul class="right_icon d_none1">
+                        <a href="views/login_form.php" id="shopnow-header" class="order">Shop Now</a>
+                     </ul>';
+                     }
+                     ?>
+
                   </div>
                </div>
             </div>
@@ -96,55 +114,46 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
-                              <li class="nav-item ">
-                                 <a class="nav-link" href="index.html">Home</a>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="index.php">Home</a>
                               </li>
                               <li class="nav-item active">
-                                 <a class="nav-link" href="about.html">About</a>
+                                 <a class="nav-link" href="about.php">About</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="products.html">Products</a>
+                                 <a class="nav-link" href="products.php">Products</a>
                               </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="fashion.html">Fashion</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="news.html">News</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="contact.html">Contact Us</a>
-                              </li>
+                              <?php
+                              if (isset($_SESSION['client_name'])) {
+                                 echo '<li class="nav-item"><a class="nav-link" href="controller/logout.php">Log Out</a></li>';
+                              } else {
+                                 echo '<li class="nav-item"><a class="nav-link" href="views/login_form.php">Log In</a></li>';
+                                 echo '<li class="nav-item"><a class="nav-link" href="views/register_form.php">Register</a></li>';
+                              }
+                              ?>
+
                            </ul>
                         </div>
                      </nav>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="search">
-                        <form action="/action_page.php">
-                           <input class="form_sea" type="text" placeholder="Search" name="search">
-                           <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
-                        </form>
-                     </div>
                   </div>
                </div>
             </div>
          </div>
       </div>
    </header>
-   <!-- end header inner -->
-   <!-- end header -->
-   <div class="blue_bg">
-      <div class="container">
+
+   <div class="blue_bg" style="background-color: #f2c119;">
+      <div class=" container">
          <div class="row">
             <div class="col-md-12">
                <div class="titlepage">
-                  <h2>About</h2>
+                  <h2 style="color: white;">WEBSITE EXPLANATION</h2>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- about section -->
+
    <div class="about">
       <div class="container">
          <div class="row">
@@ -154,65 +163,15 @@
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                      et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                      aliquip ex ea commodo consequat. </p>
-                  <a class="read_more" href="#">Read More</a>
-               </div>
-            </div>
-            <div class="col-md-7">
-               <div class="about_img">
-                  <figure><img src="images/black-red.png" alt="#" /></figure>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- end about section -->
-   <!--  footer -->
+
    <footer>
       <div class="footer">
          <div class="container">
-            <div class="row">
-               <div class="col-md-3">
-                  <div class="inror_box">
-                     <h3>INFORMATION </h3>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                        alteration in some form, by injected humour, or randomised words which don't look even slightly
-                        believable</p>
-                  </div>
-               </div>
-               <div class="col-md-3">
-                  <div class="inror_box">
-                     <h3>MY ACCOUNT </h3>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                        alteration in some form, by injected humour, or randomised words which don't look even slightly
-                        believable</p>
-                  </div>
-               </div>
-               <div class="col-md-3">
-                  <div class="inror_box">
-                     <h3>ABOUT </h3>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                        alteration in some form, by injected humour, or randomised words which don't look even slightly
-                        believable</p>
-                  </div>
-               </div>
-               <div class="col-md-3">
-                  <div class="inror_box">
-                     <h3>CONTACTS </h3>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                        alteration in some form, by injected humour, or randomised words which don't look even slightly
-                        believable</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="copyright">
-            <div class="container">
-               <div class="row">
-                  <div class="col-md-12">
-                     <p>© 2019 All Rights Reserved. Design by<a href="https://html.design/"> Free Html Templates</a></p>
-                  </div>
-               </div>
-            </div>
          </div>
       </div>
    </footer>

@@ -102,7 +102,7 @@ if (isset($_GET['prdId'])) {
                         ?>
                     </div>
                     <div>
-                        <button id="addToCartBtn" style="margin-top: 10px;">
+                        <button id="addToCartBtn" type="button" style="margin-top: 10px;">
                             Add to cart
                         </button>
                     </div>

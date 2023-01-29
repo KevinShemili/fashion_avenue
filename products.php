@@ -14,6 +14,15 @@ $query_result = mysqli_query($connection, $sql_query);
 while ($row = $query_result->fetch_assoc()) {
    $prodArray[] = $row;
 }
+
+if (isset($_SESSION['client_name'])) {
+   $userId = $_SESSION['client_name'];
+   $sql_query2 = " SELECT `cartId` FROM `cart` WHERE `userId` = '$userId' ";
+   $query_result2 = mysqli_query($connection, $sql_query2);
+   $entry = mysqli_fetch_assoc($query_result2);
+   if ($entry != null)
+      $cartId = $entry['cartId'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -86,11 +95,11 @@ while ($row = $query_result->fetch_assoc()) {
                         <a href="views/add_credit_card.php" id="shopnow-header" class="order">Enter Credit Card</a>
                      </ul>';
                         } else {
-                           echo '<ul class="right_icon" style="background-color: white;">
-                                    <a href="views/cart.php" id="shopnow-header" class="order">
-                                       <img style="min-width: 20px; max-width: 20px; min-height: 20px; max-height: 20px;" src="images/shoppingcart.png" alt="#" />
+                           echo "<ul class='right_icon' style='background-color: white;'>
+                                    <a href='views/cart.php?cartId=" . $cartId . "' id='shopnow-header' class='order'>
+                                       <img style='min-width: 20px; max-width: 20px; min-height: 20px; max-height: 20px;' src='images/shoppingcart.png' alt='#' />
                                     </a>
-                                 </ul>';
+                                 </ul>";
                         }
                      } else {
                         echo '<ul class="right_icon d_none1">

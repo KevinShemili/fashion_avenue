@@ -22,8 +22,7 @@ if (!isset($_SESSION['admin_name'])) {
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
-    <link rel="stylesheet" href="../css/admin_cards.css">
-    <script src="../javascript/admin_product_panel.js" defer></script>
+    <script src="../javascript/earning_panel.js" defer></script>
 </head>
 
 <body class="main-layout footer_to90 fashion_page">
@@ -68,9 +67,9 @@ if (!isset($_SESSION['admin_name'])) {
                                             <a class="nav-link" href="admin_panel.php?pag=1">Main Panel</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="admin_products_panel.php">Products</a>
+                                            <a class="nav-link" href="admin_products_panel.php">Products</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item active">
                                             <a class="nav-link" href="earning_panel.php">Earnings/Budget</a>
                                         </li>
                                         <li class="nav-item">
@@ -78,13 +77,8 @@ if (!isset($_SESSION['admin_name'])) {
                                         </li>
                                     </ul>
                                 </div>
+
                             </nav>
-                        </div>
-                        <div>
-                            <div class="search" style="display: flex; align-items: center; justify-content: center; flex-direction: row;">
-                                <input id="searchField" class="form_sea" type="text" placeholder="Search" name="search" style="margin-right: 30px;">
-                                <button id="clearBtn" style="color: white; background-color: transparent;">CLEAR</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -92,11 +86,23 @@ if (!isset($_SESSION['admin_name'])) {
         </div>
     </header>
     <div class="inner-content">
-        <button id="addBtn" type="button" class="btn btn-primary btn-lg btn-block m-3" style="width: 98%; background-color: #f2c119; border: none;">Add Product</button>
+        <table class="table mt-3">
+            <thead style="background-color: #f2c119; color: black; text-align: center;">
+                <tr>
+                    <th scope="col">Month</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Revenue</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody" style="text-align: center;">
+            </tbody>
+        </table>
     </div>
-    <div id="container">
+    <div>
+        <blockquote class="blockquote">
+            <p class="mb-0" id="resultParagraph"></p>
+        </blockquote>
     </div>
-
     <footer>
         <div class="footer">
             <div class="container">

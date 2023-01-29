@@ -64,7 +64,7 @@ if (!isset($_SESSION['admin_name'])) {
                                 <div class="collapse navbar-collapse" id="navbarsExample04">
                                     <ul class="navbar-nav mr-auto">
                                         <li class="nav-item ">
-                                            <a class="nav-link" href="admin_panel.php?pag=1">Main Panel</a>
+                                            <a class="nav-link active" href="admin_panel.php?pag=1">Main Panel</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="admin_products_panel.php">Products</a>

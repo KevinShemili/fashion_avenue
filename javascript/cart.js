@@ -1,70 +1,141 @@
-/* Set rates + misc */
-var taxRate = 0.05;
-var shippingRate = 15.0;
-var fadeTime = 300;
+let container = document.getElementById("content");
+let totalPriceText = document.getElementById("totalPriceText");
+let checkoutBtn = document.getElementById("checkoutBtn");
 
-/* Assign actions */
-$(".product-quantity input").change(function () {
-  updateQuantity(this);
-});
+const urlParams = new URLSearchParams(window.location.search);
 
-$(".product-removal button").click(function () {
-  removeItem(this);
-});
+let arrayPrdIds = [];
 
-/* Recalculate cart */
-function recalculateCart() {
-  var subtotal = 0;
-
-  /* Sum up row totals */
-  $(".product").each(function () {
-    subtotal += parseFloat($(this).children(".product-line-price").text());
+window.onload = () => {
+  getCardItems((items) => {
+    prepareContainer(items);
   });
+};
 
-  /* Calculate totals */
-  var tax = subtotal * taxRate;
-  var shipping = subtotal > 0 ? shippingRate : 0;
-  var total = subtotal + tax + shipping;
+let getCardItems = (callback) => {
+  const cartId = urlParams.get("cartId");
+  let http = new XMLHttpRequest();
+  http.open("GET", "../controller/getCartItems.php?cartId=" + cartId);
+  http.send();
+  http.addEventListener("load", () => {
+    let productsJson = http.responseText;
+    let products = JSON.parse(productsJson);
+    if (products) callback(products);
+    else container.innerHTML = "";
+  });
+};
 
-  /* Update totals display */
-  $(".totals-value").fadeOut(fadeTime, function () {
-    $("#cart-subtotal").html(subtotal.toFixed(2));
-    $("#cart-tax").html(tax.toFixed(2));
-    $("#cart-shipping").html(shipping.toFixed(2));
-    $("#cart-total").html(total.toFixed(2));
-    if (total == 0) {
-      $(".checkout").fadeOut(fadeTime);
-    } else {
-      $(".checkout").fadeIn(fadeTime);
+let prepareContainer = (items) => {
+  container.innerHTML = "";
+  if (items.length > 0) {
+    let totalPriceToPay = 0;
+    for (let item of items) {
+      let itemPrdId = item["prdId"];
+
+      let http = new XMLHttpRequest();
+      http.open("GET", "../controller/getProduct.php?itemPrdId=" + itemPrdId);
+      http.send();
+      http.addEventListener("load", () => {
+        let productsJson = http.responseText;
+        let products = JSON.parse(productsJson);
+        let obj = {
+          id: itemPrdId,
+          bought: item["quantity"],
+          oldQty: products["quantity"],
+        };
+        arrayPrdIds.push(obj);
+        if (products["onSale"] == 1) {
+          newPrice =
+            products["price"] -
+            (products["salePercentage"] * products["price"]) / 100;
+          totalPriceToPay += parseFloat(newPrice) * parseInt(item["quantity"]);
+          container.innerHTML += `<div class="row border-top border-bottom">
+                                <div class="row main align-items-center">
+                                    <div class="col-2"><img class="img-fluid" src="../${products["imageLocation"]}"></div>
+                                    <div class="col">
+                                        <div class="row text-muted">${products["productName"]}</div>
+                                        <div class="row">${products["brand"]}</div>
+                                    </div>
+                                    <div class="col">
+                                        <a href="#" class="border">${item["quantity"]}</a>
+                                    </div>
+                                    <div class="col" style="color:crimson;">${newPrice}$<span cartItemId=${item["cartItemsId"]} id="deleteProd" class="close">&#10005;</span></div>
+                                </div>
+                        </div>`;
+        } else {
+          totalPriceToPay +=
+            parseFloat(products["price"]) * parseInt(item["quantity"]);
+          container.innerHTML += `<div class="row border-top border-bottom">
+                                <div class="row main align-items-center">
+                                    <div class="col-2"><img class="img-fluid" src="../${products["imageLocation"]}"></div>
+                                    <div class="col">
+                                        <div class="row text-muted">${products["productName"]}</div>
+                                        <div class="row">${products["brand"]}</div>
+                                    </div>
+                                    <div class="col">
+                                        <a href="#" class="border">${item["quantity"]}</a>
+                                    </div>
+                                    <div class="col">${products["price"]}$<span cartItemId=${item["cartItemsId"]} id="deleteProd" class="close">&#10005;</span></div>
+                                </div>
+                        </div>`;
+        }
+        totalPriceText.innerText = parseFloat(totalPriceToPay).toFixed(2) + "$";
+      });
     }
-    $(".totals-value").fadeIn(fadeTime);
-  });
-}
+  } else {
+    totalPriceText.innerText = "0$";
+  }
+};
 
-/* Update quantity */
-function updateQuantity(quantityInput) {
-  /* Calculate line price */
-  var productRow = $(quantityInput).parent().parent();
-  var price = parseFloat(productRow.children(".product-price").text());
-  var quantity = $(quantityInput).val();
-  var linePrice = price * quantity;
+container.addEventListener("click", (event) => {
+  event.stopPropagation();
+  event.preventDefault();
+  if (event.target.nodeName == "SPAN") {
+    const cartItemId = event.target.getAttribute("cartItemId");
 
-  /* Update line price display and recalc cart totals */
-  productRow.children(".product-line-price").each(function () {
-    $(this).fadeOut(fadeTime, function () {
-      $(this).text(linePrice.toFixed(2));
-      recalculateCart();
-      $(this).fadeIn(fadeTime);
+    let http = new XMLHttpRequest();
+    http.open("POST", "../controller/deleteCartItem.php");
+    let form = new FormData();
+    form.append("cartItemId", cartItemId);
+    http.send(form);
+    http.addEventListener("load", () => {
+      getCardItems((items) => {
+        prepareContainer(items);
+      });
     });
-  });
-}
+  }
+});
 
-/* Remove item from cart */
-function removeItem(removeButton) {
-  /* Remove row from DOM and recalc cart total */
-  var productRow = $(removeButton).parent().parent();
-  productRow.slideUp(fadeTime, function () {
-    productRow.remove();
-    recalculateCart();
-  });
-}
+checkoutBtn.addEventListener("click", () => {
+  if (totalPriceText.innerText != "0$") {
+    let http = new XMLHttpRequest();
+    http.open("POST", "../controller/deleteAllCartItems.php");
+    http.send();
+    http.addEventListener("load", () => {
+      container.innerHTML = "Success. Items will be delivered soon.";
+      totalPriceText.innerText = "0$";
+
+      for (let obj of arrayPrdIds) {
+        let ihttp = new XMLHttpRequest();
+        ihttp.open("POST", "../controller/updateProductQty.php");
+        let form = new FormData();
+        form.append("id", obj.id);
+        form.append("oldQty", obj.oldQty);
+        form.append("boughtQty", obj.bought);
+        ihttp.send(form);
+      }
+    });
+
+    let http2 = new XMLHttpRequest();
+
+    http2.open("POST", "../controller/addToBudget.php");
+    let form = new FormData();
+    form.append("revenue", totalPriceText.innerText);
+    http2.send(form);
+    http2.addEventListener("load", () => {
+      let response = http2.responseText;
+    });
+  } else {
+    container.innerHTML = "No items.";
+  }
+});

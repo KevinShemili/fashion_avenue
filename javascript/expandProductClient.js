@@ -15,8 +15,7 @@ addToCartBtn.addEventListener("click", () => {
     form.append("prdid", prdid);
     http.send(form);
     http.addEventListener("load", () => {
-      let wtf = http.responseText;
-      window.location.href = "../views/cart.php";
+      window.location.replace("../products.php");
     });
   } else {
     alert("Numbers only");

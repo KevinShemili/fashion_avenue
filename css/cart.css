@@ -61,6 +61,10 @@ body {
     padding: 0;
 }
 
+span:hover {
+    cursor: pointer;
+}
+
 .summary .col-10 {
     padding: 0;
 }
