@@ -58,6 +58,7 @@ h3 {
 #textarea {
     min-height: 300px;
     min-width: 300px;
+    word-wrap: break-word;
 }
 
 select {

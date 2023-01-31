@@ -5,10 +5,10 @@ echo '<body style="background-color:#eee">';
 define('PASSWORD_REGEX', '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/');
 
 if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['password'])) {
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $name = mysqli_real_escape_string($connection, $_POST['name']);
+    $surname = mysqli_real_escape_string($connection, $_POST['surname']);
+    $email = mysqli_real_escape_string($connection, $_POST['email']);
+    $password = mysqli_real_escape_string($connection, $_POST['password']);
 
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         if (preg_match(PASSWORD_REGEX, $password)) {

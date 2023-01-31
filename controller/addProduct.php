@@ -30,7 +30,6 @@ if (isset($_FILES['image'])) {
     $file_ext = strtolower(end(explode('.', $_FILES['image']['name'])));
     $extensions = array("jpeg", "jpg", "png");
     if (in_array($file_ext, $extensions) === false) {
-        echo "Extension not allowed, please choose a JPEG or PNG file.";
         exit;
     }
     $new_file_name = uniqid() . '.' . $file_ext;
@@ -40,5 +39,5 @@ if (isset($_FILES['image'])) {
     $query = "INSERT INTO product (productName, productDesc, imageName, imageLocation, brand, category, price, onSale, salePercentage, quantity) VALUES ('$prodname', '$prodDesc', '$new_file_name', 'images/serverSidePhotos/$new_file_name', '$prodBrand', '$prodCatg', '$prodPrice', '$onSale', '$salePercentage', '$prodQty')";
     $result = mysqli_query($connection, $query);
 } else {
-    echo "Please provide an image";
+    exit;
 }

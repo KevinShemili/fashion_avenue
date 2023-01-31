@@ -49,7 +49,6 @@ addBtn.addEventListener("click", () => {
     http.open("POST", "../controller/addProduct.php");
     http.send(new FormData(document.getElementById("imgSubmit")));
     http.addEventListener("load", () => {
-      errormsg.innerText = http.responseText;
       window.location.replace("../views/admin_products_panel.php");
     });
   } else {

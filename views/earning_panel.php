@@ -89,8 +89,7 @@ if (!isset($_SESSION['admin_name'])) {
         <table class="table mt-3">
             <thead style="background-color: #f2c119; color: black; text-align: center;">
                 <tr>
-                    <th scope="col">Month</th>
-                    <th scope="col">Year</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Revenue</th>
                 </tr>
             </thead>

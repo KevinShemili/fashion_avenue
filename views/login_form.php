@@ -16,8 +16,8 @@ if (isset($_SESSION['client_name'])) {
 }
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = mysqli_real_escape_string($connection, $_POST['email']);
+    $password = mysqli_real_escape_string($connection, $_POST['password']);
 
     $sql_query = " SELECT * FROM user WHERE email = '$email' ";
     $query_result = mysqli_query($connection, $sql_query);

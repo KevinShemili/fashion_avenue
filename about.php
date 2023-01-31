@@ -147,7 +147,7 @@ if (isset($_SESSION['client_name'])) {
          <div class="row">
             <div class="col-md-12">
                <div class="titlepage">
-                  <h2 style="color: white;">WEBSITE EXPLANATION</h2>
+                  <h2 style="color: white;">CEN 311 - Web Programming</h2>
                </div>
             </div>
          </div>
@@ -159,10 +159,25 @@ if (isset($_SESSION['client_name'])) {
          <div class="row">
             <div class="col-md-5">
                <div class="about_text">
-                  <h3>The standard Lorem Ipsum </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                     et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                     aliquip ex ea commodo consequat. </p>
+                  <h3>Project for CEN 311 - Web Programming</h3>
+                  <p>Website has 2 types of users. Admin and client. Signup is avaliable only for clients. The client can browse products by category
+                     and can add items to his shopping cart. In order to do such, so for the shopping cart to be avaliable the client has a enter a
+                     credit card. After the client has filled this obligation, he can purchase items from the shopping cart.
+                  </p>
+                  <h4>Client with no credit card</h4>
+                  <h5>Email: simpleuser@gmail.com</h5>
+                  <h5>Pass: simpleuser123</h5><br>
+                  <h4>Client with credit card</h4>
+                  <h5>Email: simpleuser2@mail.com</h5>
+                  <h5>Pass: simpleuser123</h5>
+                  <p>
+                     The admin has 3 main panels. The first and third one consist of tables. In the first table the admin can see details about users, and can see how
+                     many users have added their credit cards. In the third panel the admin can see the generated revenue from the sales. In the second panel,
+                     the admin can add a new product to the store, or can update an existing one.
+                  </p><br>
+                  <h4>Admin</h4>
+                  <h5>Email: admin@hmail.com</h5>
+                  <h5>Pass: Admin123admin</h5>
                </div>
             </div>
          </div>

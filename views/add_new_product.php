@@ -35,7 +35,7 @@ if (!isset($_SESSION['admin_name'])) {
                         <label id="labelimg" for="image">Product Image</label><br>
                         <input id="img" type="file" name="image" accept="image/jpg, image/jpeg, image/png">
                     </div>
-                    <div style="margin-top: 30px;">
+                    <div style="margin-top: 30px; word-wrap: break-word;">
                         <label for="proddesc">Product Description</label>
                         <input id="textarea" type="text" name="proddesc" placeholder="Enter description" class="input-form" required>
                     </div>
