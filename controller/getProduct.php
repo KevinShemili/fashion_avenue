@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_name']) && !isset($_SESSION['client_name'])) {
 if (isset($_GET['itemPrdId'])) {
     include '../database/config.php';
     $itemPrdId = $_GET['itemPrdId'];
-    $sql_query = " SELECT `productName`, `brand`, `imageLocation`, `price`, `salePercentage`, `quantity`, `onSale` FROM `product` WHERE `productId` = '$itemPrdId' ";
+    $sql_query = " SELECT `productName`,`productDesc`, `brand`, `imageLocation`, `price`, `salePercentage`, `quantity`, `onSale`, `category` FROM `product` WHERE `productId` = '$itemPrdId' ";
     $query_result = mysqli_query($connection, $sql_query);
 
     $row = mysqli_fetch_array($query_result);

@@ -15,7 +15,12 @@ addToCartBtn.addEventListener("click", () => {
     form.append("prdid", prdid);
     http.send(form);
     http.addEventListener("load", () => {
-      window.location.replace("../products.php");
+      let response = http.responseText;
+      if (response != "noCard") {
+        window.location.replace("../products.php");
+      } else {
+        window.location.replace("../views/add_credit_card.php");
+      }
     });
   } else {
     alert("Numbers only");

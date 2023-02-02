@@ -29,7 +29,26 @@ let prepareContent = (products) => {
   content.innerHTML = "";
   if (products) {
     for (let product of products) {
-      content.innerHTML += `
+      if (product["onSale"] == 1) {
+        newPrice =
+          parseFloat(product["price"]) -
+          (parseFloat(product["salePercentage"]) *
+            parseFloat(product["price"])) /
+            100;
+        content.innerHTML += `
+        <div class="card">
+          <img id="img" src="../${product["imageLocation"]}" alt="${product["productName"]}">
+          <div id="card-body">
+              <h4 style="margin-top: 20px;" class="card-title">${product["productName"]}</h4>
+              <h5 class="card-title">${product["productDesc"]}</h5>
+              <h5 class="card-text">${product["brand"]}</h5>
+              <h5 class="card-text" style="color: crimson;">${newPrice} $</h5>
+              <button id="edit-fields" type="button" prd-id="${product["productId"]}">Edit</button>
+          </div>
+        </div>
+        `;
+      } else {
+        content.innerHTML += `
         <div class="card">
           <img id="img" src="../${product["imageLocation"]}" alt="${product["productName"]}">
           <div id="card-body">
@@ -41,6 +60,7 @@ let prepareContent = (products) => {
           </div>
         </div>
         `;
+      }
     }
   } else {
     content.innerHTML += `<h3 style="color: crimson;">Empty Catalog</h3>`;

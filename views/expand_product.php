@@ -96,7 +96,7 @@ $errors = [];
             </div>
             <div style="margin-top: 30px;">
                 <label for="proddesc">Product Description</label>
-                <input id="textarea" type="text" name="proddesc" placeholder="Enter description" class="input-form" required>
+                <textarea id="textarea" type="text" name="proddesc" style="resize: none;" placeholder="Enter description" class="input-form" required></textarea>
             </div>
             <div>
                 <label for="onsale">On Sale?</label><br>

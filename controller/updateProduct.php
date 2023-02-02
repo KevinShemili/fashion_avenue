@@ -1,6 +1,9 @@
 <?php
 
+session_start();
+
 if (!isset($_SESSION['admin_name'])) {
+    echo "error";
     header('HTTP/1.0 403 Forbidden', TRUE, 403);
     die(header('location:../error/error.php'));
 }
@@ -36,10 +39,13 @@ if (
     $productPrice = mysqli_real_escape_string($connection, $_POST['productPrice']);
     $productDesc = mysqli_real_escape_string($connection, $_POST['productDesc']);
     $onSale = mysqli_real_escape_string($connection, $_POST['onSale']);
-    $salePercentage = mysqli_real_escape_string($connection, $_POST['salePercentage']);
+    if ($onSale == 1) {
+        $salePercentage = mysqli_real_escape_string($connection, $_POST['salePercentage']);
+    } else {
+        $salePercentage = 0;
+    }
     $qty = mysqli_real_escape_string($connection, $_POST['qty']);
     $catg = mysqli_real_escape_string($connection, $_POST['category']);
-
 
     try {
         $query = " UPDATE `product` SET `productName`='$productName',`productDesc`='$productDesc',`brand`='$productBrand',`category`='$catg',`price`='$productPrice',`onSale`='$onSale',`salePercentage`='$salePercentage',`quantity`='$qty' WHERE `productId` = '$prodId' ";

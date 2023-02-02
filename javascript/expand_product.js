@@ -69,7 +69,10 @@ btnUpdate.addEventListener("click", () => {
   form.append("qty", parseInt(quantityNr.innerText));
   http.send(form);
   http.addEventListener("load", () => {
-    window.location.href = "../views/admin_products_panel.php";
+    let response = http.responseText;
+    if (response != "error") {
+      window.location.href = "../views/admin_products_panel.php";
+    }
   });
 });
 
@@ -96,6 +99,24 @@ window.onload = () => {
     reader.addEventListener("load", function () {
       imagePreview.src = reader.result;
     });
+  });
+  const prdid = urlParams.get("prdid");
+  let http = new XMLHttpRequest();
+  http.open("GET", "../controller/getProduct.php?itemPrdId=" + prdid);
+  http.send();
+  http.addEventListener("load", () => {
+    let response = http.responseText;
+    let product = JSON.parse(response);
+    productName.value = product["productName"];
+    productBrand.value = product["brand"];
+    productPrice.value = parseFloat(product["price"]);
+    productDesc.value = product["productDesc"];
+    productCategory.value = product["category"];
+    if (product["onSale"] == 1) {
+      checkBox.checked = true;
+      hiddenDiv.style.display = "block";
+      salePercentage.value = parseInt(product["salePercentage"]);
+    }
   });
 };
 

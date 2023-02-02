@@ -18,8 +18,12 @@ if (
     $sql_query = " SELECT `cartId` FROM `cart` WHERE `userId` = '$userName' ";
     $query_result = mysqli_query($connection, $sql_query);
     $row = mysqli_fetch_assoc($query_result);
-    $cartId = $row['cartId'];
 
-    $query = " INSERT INTO `cartitems`(`prdId`, `cartId`, `quantity`) VALUES ('$prodId','$cartId','$qty') ";
-    $result = mysqli_query($connection, $query);
+    if ($row != null) {
+        $cartId = $row['cartId'];
+        $query = " INSERT INTO `cartitems`(`prdId`, `cartId`, `quantity`) VALUES ('$prodId','$cartId','$qty') ";
+        $result = mysqli_query($connection, $query);
+    } else {
+        echo "noCard";
+    }
 }
